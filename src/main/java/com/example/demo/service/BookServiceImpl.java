@@ -27,8 +27,8 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book addBook(Book book, Long authorId) {
         Author author = authorService.getAuthorById(authorId);
-        book.setAuthor(author);  // Ensure the author is set properly
-        author.addBook(book);  // Ensure the relationship is bidirectional if necessary
+        book.setAuthor(author);
+        author.addBook(book);
         return bookRepository.save(book);
     }
 

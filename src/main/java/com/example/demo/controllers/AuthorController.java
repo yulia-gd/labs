@@ -19,7 +19,6 @@ public class AuthorController {
 
     private final AuthorService authorService;
 
-    // Отримати автора за ID
     @GetMapping("/author/{id}")
     public ResponseEntity<ApiResponse> getAuthorById(@PathVariable Long id) {
         Author author = authorService.getAuthorById(id);
@@ -30,21 +29,21 @@ public class AuthorController {
         return ResponseEntity.status(FOUND).body(new ApiResponse("All authors found", authorService.getAll()));
     }
 
-    // Додати автора
+
     @PostMapping("/add")
     public ResponseEntity<ApiResponse> addAuthor(@Valid @RequestBody Author author) {
         Author addedAuthor = authorService.saveAuthor(author);
         return ResponseEntity.status(CREATED).body(new ApiResponse("Author added. Location: "+ "http://localhost:8080/api/v1/authors/author/"+addedAuthor.getId(), addedAuthor));
     }
 
-    // Оновити автора
+
     @PutMapping("/update/{id}")
     public ResponseEntity<ApiResponse> updateAuthor(@PathVariable Long id, @RequestBody AuthorUpdateRequest authorUpdateRequest) {
         Author updatedAuthor = authorService.updateAuthor(id, authorUpdateRequest);
         return ResponseEntity.ok(new ApiResponse("Author updated. Location: "+ "http://localhost:8080/api/v1/authors/author/"+updatedAuthor.getId(), updatedAuthor));
     }
 
-    // Видалити автора
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<ApiResponse> deleteAuthor(@PathVariable Long id) {
         authorService.deleteAuthor(id);

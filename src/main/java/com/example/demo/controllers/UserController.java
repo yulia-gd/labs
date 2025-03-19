@@ -19,7 +19,7 @@ public class UserController {
 
     private final UserService userService;
 
-    // Отримати користувача за ID
+
     @GetMapping("/user/{id}")
     public ResponseEntity<ApiResponse> getUserById(@PathVariable Long id) {
         User user = userService.getUserById(id);
@@ -30,35 +30,32 @@ public class UserController {
         return ResponseEntity.status(FOUND).body(new ApiResponse("All users found", userService.getAllUsers()));
     }
 
-    // Додати користувача
     @PostMapping("/add")
     public ResponseEntity<ApiResponse> addUser(@Valid @RequestBody User user) {
         User addedUser = userService.saveUser(user);
         return ResponseEntity.status(CREATED).body(new ApiResponse("User added. Location: "+ "http://localhost:8080/api/v1/users/user/"+addedUser.getId(), addedUser));
     }
 
-    // Оновити користувача
+
     @PutMapping("/update/{id}")
     public ResponseEntity<ApiResponse> updateUser(@PathVariable Long id, @RequestBody UserUpdateRequest user) {
         User updatedUser = userService.updateUser(id, user);
         return ResponseEntity.ok(new ApiResponse("User updated. Location: "+ "http://localhost:8080/api/v1/users/user/"+updatedUser.getId(), updatedUser));
     }
 
-    // Видалити користувача
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<ApiResponse> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return ResponseEntity.ok(new ApiResponse("User deleted", null));
     }
 
-    // Позичити книгу
     @PutMapping("/borrow-book/{userId}/{bookId}")
     public ResponseEntity<ApiResponse> borrowBook(@PathVariable Long userId, @PathVariable Long bookId) {
         User user = userService.borrowBook(userId, bookId);
         return ResponseEntity.ok(new ApiResponse("Book borrowed successfully", user));
     }
 
-    // Повернути книгу
+
     @PutMapping("/return-book/{userId}/{bookId}")
     public ResponseEntity<ApiResponse> returnBook(@PathVariable Long userId, @PathVariable Long bookId) {
         User user = userService.returnBook(userId, bookId);

@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
             Book book = iterator.next();
             book.getUsers().remove(user);
             book.incrementAmount();
-            iterator.remove(); // Використовуємо iterator.remove() замість user.getBorrowedBooks().remove(book)
+            iterator.remove();
             bookRepository.save(book);
         }
 

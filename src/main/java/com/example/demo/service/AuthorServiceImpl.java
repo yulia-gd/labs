@@ -49,7 +49,7 @@ public class AuthorServiceImpl implements AuthorService {
             }
             bookRepository.delete(book);
         }
-        authorRepository.delete(author); // Видаляємо автора з бази
+        authorRepository.delete(author);
     }
 
 
