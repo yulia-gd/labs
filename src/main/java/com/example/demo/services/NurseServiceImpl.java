@@ -78,22 +78,24 @@ public class NurseServiceImpl implements NurseService {
     }
 
     @Override
-    public void fireNurse(Long id) {
+    public Nurse fireNurse(Long id) {
         Nurse nurse = getNurseById(id);
         if(nurse.getEmploymentStatus().equals(EmploymentStatus.FIRED)) {
             throw new AlreadyFiredException("Nurse is already fired");
         }
         nurse.setEmploymentStatus(EmploymentStatus.FIRED);
         nurseRepository.save(nurse);
+        return nurse;
     }
 
     @Override
-    public void hireNurse(Long id) {
+    public Nurse hireNurse(Long id) {
         Nurse nurse = getNurseById(id);
         if(nurse.getEmploymentStatus().equals(EmploymentStatus.EMPLOYED)) {
             throw new AlreadyEmployedException("Nurse is already hired");
         }
         nurse.setEmploymentStatus(EmploymentStatus.EMPLOYED);
         nurseRepository.save(nurse);
+        return nurse;
     }
 }

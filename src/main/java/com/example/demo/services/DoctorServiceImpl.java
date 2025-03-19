@@ -56,22 +56,24 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public void fireDoctor(Long id) {
+    public Doctor fireDoctor(Long id) {
         Doctor doctor = getDoctorById(id);
         if(doctor.getEmploymentStatus().equals(EmploymentStatus.FIRED)) {
             throw new AlreadyFiredException("Doctor is already fired");
         }
         doctor.setEmploymentStatus(EmploymentStatus.FIRED);
         doctorRepository.save(doctor);
+        return doctor;
     }
 
     @Override
-    public void hireDoctor(Long id) {
+    public Doctor hireDoctor(Long id) {
         Doctor doctor = getDoctorById(id);
         if(doctor.getEmploymentStatus().equals(EmploymentStatus.EMPLOYED)) {
             throw new AlreadyFiredException("Doctor is already employed");
         }
         doctor.setEmploymentStatus(EmploymentStatus.EMPLOYED);
         doctorRepository.save(doctor);
+        return doctor;
     }
 }

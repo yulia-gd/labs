@@ -14,7 +14,7 @@ public interface NurseService {
 
     Nurse updateNurse(Long id, NurseUpdateRequest updatedNurse);
 
-    void fireNurse(Long id);
+    Nurse fireNurse(Long id);
 
-    void hireNurse(Long id);
+    Nurse hireNurse(Long id);
 }

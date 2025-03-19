@@ -60,8 +60,8 @@ public class PatientController {
 
     @PatchMapping("/{id}/discharge")
     public ResponseEntity<ApiResponse> dischargePatient(@PathVariable Long id) {
-        patientService.dischargePatient(id);
-        return ResponseEntity.ok(new ApiResponse("Patient discharged successfully", null));
+        Patient patient = patientService.dischargePatient(id);
+        return ResponseEntity.ok(new ApiResponse("Patient discharged successfully", patient));
     }
 
 
@@ -70,8 +70,8 @@ public class PatientController {
             @PathVariable Long patientId,
             @RequestParam Long doctorId,
             @NotBlank(message = "You must add description") @RequestParam String description) {
-        patientService.addDiagnosis(patientId, doctorId, description);
-        return ResponseEntity.status(201).body(new ApiResponse("Diagnosis added successfully", null));
+        Patient patient = patientService.addDiagnosis(patientId, doctorId, description);
+        return ResponseEntity.status(201).body(new ApiResponse("Diagnosis added successfully", patient));
     }
 
 
@@ -80,8 +80,8 @@ public class PatientController {
             @PathVariable Long patientId,
             @RequestParam Long doctorId,
             @Valid @RequestBody PrescriptionAddRequest prescription) {
-        patientService.addPrescription(patientId, doctorId, prescription);
-        return ResponseEntity.status(201).body(new ApiResponse("Prescription added successfully", null));
+        Patient patient = patientService.addPrescription(patientId, doctorId, prescription);
+        return ResponseEntity.status(201).body(new ApiResponse("Prescription added successfully", patient));
     }
 
     // Виконати рецепт
@@ -89,7 +89,7 @@ public class PatientController {
     public ResponseEntity<ApiResponse> performPrescription(
             @PathVariable Long prescriptionId,
             @RequestParam Long performedById) {
-        patientService.performPrescription(prescriptionId, performedById);
-        return ResponseEntity.ok(new ApiResponse("Prescription performed successfully", null));
+        Patient patient = patientService.performPrescription(prescriptionId, performedById);
+        return ResponseEntity.ok(new ApiResponse("Prescription performed successfully", patient));
     }
 }

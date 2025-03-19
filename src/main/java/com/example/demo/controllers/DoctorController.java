@@ -53,13 +53,13 @@ public class DoctorController {
 
     @PutMapping("/fire/{id}")
     public ResponseEntity<ApiResponse> fireDoctor(@PathVariable Long id) {
-        doctorService.fireDoctor(id);
-        return ResponseEntity.ok(new ApiResponse("Doctor is fired", null));
+        Doctor doctor = doctorService.fireDoctor(id);
+        return ResponseEntity.ok(new ApiResponse("Doctor is fired", doctor));
     }
 
     @PutMapping("/hire/{id}")
     public ResponseEntity<ApiResponse> hireDoctor(@PathVariable Long id) {
-        doctorService.hireDoctor(id);
-        return ResponseEntity.ok(new ApiResponse("Doctor is hired again", null));
+        Doctor doctor = doctorService.hireDoctor(id);
+        return ResponseEntity.ok(new ApiResponse("Doctor is hired again", doctor));
     }
 }

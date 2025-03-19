@@ -15,8 +15,8 @@ public interface DoctorService {
 
     Doctor updateDoctor(Long id, DoctorUpdateRequest updatedDoctor);
 
-    @Transactional
-    void fireDoctor(Long id);
 
-    void hireDoctor(Long id);
+    Doctor fireDoctor(Long id);
+
+    Doctor hireDoctor(Long id);
 }

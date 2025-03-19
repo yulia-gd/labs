@@ -11,7 +11,7 @@ import java.util.List;
 public interface PatientService {
     List<Patient> getAllPatients();
 
-    @Transactional
+
     Patient getPatientById(Long id);
 
     Patient createPatient(PatientAddRequest patientAddRequest);
@@ -22,11 +22,14 @@ public interface PatientService {
     void deletePatient(Long id);
 
     @Transactional
-    void dischargePatient(Long patientId);
+    Patient dischargePatient(Long patientId);
 
     @Transactional
-    void addDiagnosis(Long patientId, Long doctorId, String description);
+    Patient addDiagnosis(Long patientId, Long doctorId, String description);
 
     @Transactional
-    void addPrescription(Long patientId, Long doctorId, PrescriptionAddRequest prescriptionToAdd);
+    Patient addPrescription(Long patientId, Long doctorId, PrescriptionAddRequest prescriptionToAdd);
+
+    @Transactional
+    Patient performPrescription(Long prescriptionId, Long performedById);
 }

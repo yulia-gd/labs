@@ -36,7 +36,7 @@ public class PatientServiceImpl implements PatientService {
         return patientRepository.findAll();
     }
 
-    @Transactional
+
     @Override
     public Patient getPatientById(Long id) {
         return patientRepository.findById(id)
@@ -83,7 +83,7 @@ public class PatientServiceImpl implements PatientService {
         }
     }
 
-    @Transactional
+
     @Override
     public void deletePatient(Long id) {
         Patient patient = getPatientById(id);
@@ -92,7 +92,7 @@ public class PatientServiceImpl implements PatientService {
 
     @Transactional
     @Override
-    public void dischargePatient(Long patientId) {
+    public Patient dischargePatient(Long patientId) {
         Patient patient = getPatientById(patientId);
 
         List<Diagnosis> diagnoses = patient.getDiagnoses();
@@ -106,11 +106,12 @@ public class PatientServiceImpl implements PatientService {
         patient.setPatientStatus(PatientStatus.DISCHARGED);
 
         patientRepository.save(patient);
+        return patient;
     }
 
     @Transactional
     @Override
-    public void addDiagnosis(Long patientId, Long doctorId, String description) {
+    public Patient addDiagnosis(Long patientId, Long doctorId, String description) {
         Patient patient = getPatientById(patientId);
 
         if (patient.getPatientStatus() != PatientStatus.HOSPITALIZED) {
@@ -131,12 +132,13 @@ public class PatientServiceImpl implements PatientService {
         patient.getDiagnoses().add(diagnosis);
 
         patientRepository.save(patient);
+        return patient;
     }
 
 
     @Transactional
     @Override
-    public void addPrescription(Long patientId, Long doctorId, PrescriptionAddRequest prescriptionToAdd) {
+    public Patient addPrescription(Long patientId, Long doctorId, PrescriptionAddRequest prescriptionToAdd) {
         Patient patient =  getPatientById(patientId);
 
         if (patient.getPatientStatus() != PatientStatus.HOSPITALIZED) {
@@ -160,10 +162,11 @@ public class PatientServiceImpl implements PatientService {
         patient.getPrescriptions().add(prescription);
 
         patientRepository.save(patient);
+        return patient;
     }
 
     @Transactional
-    public void performPrescription(Long prescriptionId, Long performedById) {
+    public Patient performPrescription(Long prescriptionId, Long performedById) {
 
         Prescription prescription = prescriptionRepository.findById(prescriptionId)
                 .orElseThrow(()-> new ResourceNotFoundException("Prescription is not found"));
@@ -195,6 +198,7 @@ public class PatientServiceImpl implements PatientService {
         prescription.setPerformedBy(performedBy);
 
         patientRepository.save(patient);
+        return patient;
     }
 
 }

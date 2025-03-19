@@ -45,14 +45,14 @@ public class NurseController {
 
     @PutMapping("/fire/{id}")
     public ResponseEntity<ApiResponse> fireNurse(@PathVariable Long id) {
-        nurseService.fireNurse(id);
-        return ResponseEntity.status(OK).body(new ApiResponse("Nurse fired", null));
+        Nurse nurse = nurseService.fireNurse(id);
+        return ResponseEntity.status(OK).body(new ApiResponse("Nurse fired", nurse));
     }
 
     @PutMapping("/hire/{id}")
     public ResponseEntity<ApiResponse> hireNurse(@PathVariable Long id) {
-        nurseService.hireNurse(id);
-        return ResponseEntity.status(OK).body(new ApiResponse("Nurse hired", null));
+        Nurse nurse = nurseService.hireNurse(id);
+        return ResponseEntity.status(OK).body(new ApiResponse("Nurse hired", nurse));
     }
 }
 
